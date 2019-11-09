@@ -1,0 +1,41 @@
+---
+title: "Advanced Statistics Module 11"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r comment=NA}
+library(readxl)
+df <- read.csv("C:/Users/adamw/Documents/Advanced Statistics/Datasets/Module 11 Data.csv", row.names=1)
+df
+```
+
+First we import the data from an excel spreadsheet to a csv file named 'df' and conduct the chi-squared test.
+
+```{r comment=NA}
+chisq.test(df)
+```
+
+Here we see our critical values of the chi-squared test. We can see that the initial degrees of freedom are 4, and our p-value is .0598. Our null hypothesis in this case would be that whether someone is a beach-comer or a windsurfer has no effect on them choosing the same hotel again. Since we have a low p-value, there is evidence against this null hypothesis and we can infer that being a beach-comer or a windsurfer does in fact influence how likely one is to stay at the same hotel.
+
+We can also take a look at other values of our chi-squared test such as the expected and residual numbers based off of our observed values in our dataset.
+
+```{r comment=NA}
+chitest = chisq.test(df)
+chitest$expected
+chitest$residuals
+```
+
+
+Next, we will graph the outcome of our chi-squared testing.
+
+```{r comment=NA}
+library("lattice")
+densityplot(df$Beachcomber ~ df$Windsurfer, xlab = "Windsurfers")
+densityplot(df$Windsurfer ~ df$Beachcomber, xlab = "Beach-comers")
+```
+
+These density graphs show the relationship between beach-comers and windsurfers and how likely they are to overlap at specific intervals.
